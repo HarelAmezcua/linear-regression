@@ -105,10 +105,38 @@ def multidim_vectorized(x,y):
     Y = y.copy()
     X = np.c_[np.ones(n), x]
 
-    w = np.dot(np.linalg.pinv(X), Y)
+    X_transpose = np.transpose(X)
+
+    w = np.linalg.inv(X_transpose @ X) @ X_transpose @ Y
     return w
 
+def adaline(x,y):
+    """
+    Perform simple linear regression using the pseudoinverse method.
+    Parameters:
+    indep_var (numpy array): Independent variable values.
+    output (numpy array): Dependent variable values.
+    Returns:
+    list: Coefficients [w0, w1] of the linear regression model, where w0 is the intercept and w1 is the slope
+    """
+    
+    n = x.shape[0] # number of samples
+    m = y.shape[1] # number of the independent variable
 
+    # Initialize the weights
+    w = np.random.rand(m+1,1)
+
+    eta = 0.0001
+    
+    iterations = 10000
+    for i in range(iterations):
+        for j in range(n):
+            x_j = np.concatenate(([1], x[j].flatten())).reshape(-1,1)
+            y_pred = np.dot(np.transpose(w), x_j)
+            error = y[j] - y_pred
+            w = w + eta * error * x_j
+
+    return w
 
 
 def r2_score(x,y,w):
