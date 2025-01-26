@@ -127,8 +127,8 @@ def adaline(x,y):
     w = np.random.rand(m+1,1)
 
     eta = 0.0001
-    
-    iterations = 10000
+
+    iterations = 1000
     for i in range(iterations):
         for j in range(n):
             x_j = np.concatenate(([1], x[j].flatten())).reshape(-1,1)
