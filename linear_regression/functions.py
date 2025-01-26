@@ -51,14 +51,16 @@ def gradient_descent(indep_var,output,learning_rate=0.001,epochs=10000):
 
     # Initialize the weights
     w = np.random.rand(m+1)
+    w = np.reshape(w,(len(w),1))
 
     Y = output.copy()
     X = np.c_[np.ones(n), indep_var]
+     
 
     for i in range(epochs):
         w = w + learning_rate * (1/n) * np.dot(X.T, Y - np.dot(X, w))
+    return w 
 
-    return w   
 
 def pseudoinverse_method(indep_var, output):
     """
