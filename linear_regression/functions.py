@@ -121,14 +121,14 @@ def adaline(x,y):
     """
     
     n = x.shape[0] # number of samples
-    m = y.shape[1] # number of the independent variable
+    m = x.shape[1] # number of the independent variable
 
     # Initialize the weights
     w = np.random.rand(m+1,1)
 
-    eta = 0.0001
+    eta = 0.001
 
-    iterations = 1000
+    iterations = 10000
     for i in range(iterations):
         for j in range(n):
             x_j = np.concatenate(([1], x[j].flatten())).reshape(-1,1)
