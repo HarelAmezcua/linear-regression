@@ -152,7 +152,7 @@ def r2_score(x,y,w):
     return r2
 
 
-def plot_linear_regression(X,Y,w):
+def plot_linear_regression(X,Y,w, x_test=None):
     """
     Create a scatter plot of the data and the linear regression line.
     Parameters:
@@ -166,16 +166,26 @@ def plot_linear_regression(X,Y,w):
     fig, ax = plt.subplots()
     
     # Create a scatter plot
-    ax.scatter(X, Y)
+    # Make the dots orange
+    ax.scatter(X, Y, c='red', marker='x')
+
+    # If predictions are provided, plot them
+    # Calulate the predictions using the model
+    if x_test is not None:
+        for x_aux in x_test:
+            predictions = w[0] + w[1] * x_aux
+            ax.scatter(x_aux, predictions, c='blue', marker='o')
+
 
     # Create the regression line
     x_values = X
     y_values = w[0] + w[1] * x_values
-    ax.plot(x_values, y_values, color='red')
+    ax.plot(x_values, y_values, color='green', linewidth=2)    
 
     # Add labels
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
     ax.set_title('Linear Regression')
     ax.grid(True)    
+    ax.legend(['Data points','Predictions','Regression line'])
     return fig
